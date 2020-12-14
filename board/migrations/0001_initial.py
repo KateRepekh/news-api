@@ -15,51 +15,112 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Comment',
+            name="Comment",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateField(auto_now_add=True)),
-                ('content', models.TextField()),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateField(auto_now_add=True)),
+                ("content", models.TextField()),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Post',
+            name="Post",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateField(auto_now_add=True)),
-                ('title', models.CharField(max_length=128)),
-                ('link', models.URLField()),
-                ('comments', models.ManyToManyField(related_name='comments', through='board.Comment', to=settings.AUTH_USER_MODEL)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateField(auto_now_add=True)),
+                ("title", models.CharField(max_length=128)),
+                ("link", models.URLField()),
+                (
+                    "comments",
+                    models.ManyToManyField(
+                        related_name="comments",
+                        through="board.Comment",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Upvote',
+            name="Upvote",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateField(auto_now_add=True)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='board.post')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateField(auto_now_add=True)),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "post",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="board.post",
+                    ),
+                ),
             ],
             options={
-                'unique_together': {('post', 'owner')},
+                "unique_together": {("post", "owner")},
             },
         ),
         migrations.AddField(
-            model_name='post',
-            name='upvotes',
-            field=models.ManyToManyField(related_name='upvotes', through='board.Upvote', to=settings.AUTH_USER_MODEL),
+            model_name="post",
+            name="upvotes",
+            field=models.ManyToManyField(
+                related_name="upvotes",
+                through="board.Upvote",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='comment',
-            name='post',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='board.post'),
+            model_name="comment",
+            name="post",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="board.post"
+            ),
         ),
     ]

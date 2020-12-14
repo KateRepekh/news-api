@@ -7,10 +7,8 @@ from board.views import PostViewSet, CommentViewSet
 
 
 router = DefaultRouter()
-router.register('post', PostViewSet)
-router.register('comment', CommentViewSet)
+router.register("post", PostViewSet)
+router.register("comment", CommentViewSet)
 urlpatterns = router.urls
 
-urlpatterns += [
-    path('api-token-auth/', views.obtain_auth_token)
-]
+urlpatterns += [path("api-token-auth/", views.obtain_auth_token)]

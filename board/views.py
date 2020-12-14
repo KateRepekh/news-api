@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import permissions
 from rest_framework.decorators import action
-from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 
 from board.models import Post, Comment, Upvote
@@ -29,8 +28,11 @@ class PostViewSet(OwnedModelViewSet):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
 
-    @action(detail=True, methods=['POST'],
-            permission_classes=[permissions.IsAuthenticated])
+    @action(
+        detail=True,
+        methods=["POST"],
+        permission_classes=[permissions.IsAuthenticated],
+    )
     def upvote(self, request, pk=None):
         post = self.get_object()
         upvote = Upvote(post=post, owner=self.request.user)
@@ -42,7 +44,7 @@ class PostViewSet(OwnedModelViewSet):
         return self.retrieve(self, request, pk=pk)
 
     def get_serializer_class(self):
-        if self.action == 'upvote':
+        if self.action == "upvote":
             return Serializer
         else:
             return super().get_serializer_class()

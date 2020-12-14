@@ -16,10 +16,10 @@ class Post(OwnedByUserCreatedAtModel):
     title = models.CharField(max_length=128)
     link = models.URLField()
     comments = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, through='Comment', related_name='comments'
+        settings.AUTH_USER_MODEL, through="Comment", related_name="comments"
     )
     upvotes = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, through='Upvote', related_name='upvotes'
+        settings.AUTH_USER_MODEL, through="Upvote", related_name="upvotes"
     )
 
     def __str__(self):
@@ -42,8 +42,9 @@ class Comment(OwnedByUserAndPostCreatedAtModel):
 
 class Upvote(OwnedByUserAndPostCreatedAtModel):
     class Meta:
-        unique_together = ('post', 'owner')
+        unique_together = ("post", "owner")
 
     def __str__(self):
-        return '{post} upvoted by {user}'.format(post=self.post,
-                                                 user=self.owner)
+        return "{post} upvoted by {user}".format(
+            post=self.post, user=self.owner
+        )
