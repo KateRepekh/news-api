@@ -44,6 +44,7 @@ pip-delete-this-directory.txt
 
 # celery
 celerybeat-schedule.* 
+celerybeat-schedule*
 
 # Environments
 .env 
@@ -60,3 +61,5 @@ sftp-config.json
 # Visual Studio Code
 .vscode/* 
 .history
+
+dump.rdb
