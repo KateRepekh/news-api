@@ -22,9 +22,6 @@ RUN pip install -r requirements.txt
 # copy project
 COPY . /code/
 
-RUN python manage.py collectstatic --noinput
-RUN python manage.py migrate --noinput
-
 # add and run as non-root user
 RUN adduser -D myuser
 USER myuser
